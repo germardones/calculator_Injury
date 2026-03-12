@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+
+:root {
+  --bg-color: #000000;
+  --surface-color: #0c0c0c;
+  --border-color: #1f1f1f;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --accent-color: #e5e5e5;
+  --primary-gradient: linear-gradient(135deg, #f8f9fa 0%, #d1d5db 100%);
+  --font-main: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Card Style */
+.card {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  /* Slightly rounded cards for a premium feel */
+}
+
+/* Input Styles */
+input[type="number"],
+input[type="text"] {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: white;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  border-radius: 8px;
+  /* Rounded borders as requested */
+}
+
+/* Hide Spin Buttons */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  /* Firefox */
+}
+
+input:focus {
+  border-color: var(--text-secondary);
+}
+
+/* Slider Custom Styles */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  background: var(--border-color);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: white;
+  margin-top: -7px;
+  cursor: pointer;
+}
+
+/* Button Styles */
+.btn-primary {
+  background: var(--primary-gradient);
+  color: black;
+  border: none;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  border-radius: 8px;
+  /* Consistent rounding */
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--accent-color);
+  color: white;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  cursor: pointer;
+}

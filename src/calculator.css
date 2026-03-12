@@ -20,17 +20,60 @@
     }
 }
 
+/* --- NEW: Phase 2 Dashboard Grid --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+    /* crucial for sticky behavior */
+}
+
+@media (min-width: 992px) {
+    .dashboard-grid {
+        /* Asymmetrical 2-column layout */
+        grid-template-columns: minmax(auto, 650px) 1fr;
+        gap: 3rem;
+    }
+}
+
+/* The right column wrapper */
+.results-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+@media (min-width: 992px) {
+    .results-sidebar.sticky {
+        position: sticky;
+        top: 2rem;
+        /* The offset from the top when scrolling */
+        /* Make sure the sidebar doesn't overflow the viewport height, or allow it to scroll internally if it does */
+        max-height: calc(100vh - 4rem);
+        overflow-y: auto;
+        /* Hide scrollbar for cleaner look if it needs to scroll */
+        scrollbar-width: none;
+    }
+
+    .results-sidebar.sticky::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* --- End Dashboard Grid --- */
+
 /* Section Titles */
 .section-title {
     font-family: var(--font-main);
-    font-size: 0.875rem;
+    font-size: 1.125rem;
     font-weight: 800;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    color: white;
+    margin-bottom: 2rem;
 }
 
 /* Input Group */
@@ -224,5 +267,56 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* --- Sticky Bottom Bar --- */
+.sticky-bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border-color);
+    padding: 1rem 0;
+    z-index: 50;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.sticky-bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+.sticky-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sticky-value {
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 800;
+}
+
+@media (max-width: 600px) {
+    .sticky-bar-content {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .sticky-bottom-bar .btn-primary {
+        width: 100%;
     }
 }

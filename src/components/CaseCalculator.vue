@@ -5,6 +5,14 @@ import CalculatorResults from './CalculatorResults.vue';
 import SocialProof from './SocialProof.vue';
 import '../calculator.css';
 
+const formatCurrency = (val) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0
+  }).format(val || 0);
+};
+
 const inputs = ref({
   medicalExpenses: 0,
   lostIncome: 0,
@@ -59,25 +67,46 @@ const results = computed(() => {
 <template>
   <div class="calculator-wrapper">
     <div class="container">
-      <header class="calculator-header text-center fade-up" style="margin-bottom: 5rem;">
+      <header class="calculator-header text-center fade-up" style="margin-bottom: 3rem;">
         <h1 style="font-size: 3.5rem; line-height: 1;">ESTIMATE YOUR<br>CASE VALUE</h1>
         <p style="color: var(--text-secondary); margin-top: 1.5rem; font-weight: 500;">
           Personal Injury Calculator based on Georgia legal standards.
         </p>
       </header>
 
-      <div class="calculator-grid">
-        <!-- Lado Izquierdo: Entradas -->
-        <CalculatorInputs v-model="inputs" />
-
-        <!-- Lado Derecho: Resultados -->
-        <CalculatorResults :results="results" />
+      <div class="dashboard-grid">
+        <!-- Left Column: Inputs -->
+        <div class="inputs-column">
+          <CalculatorInputs v-model="inputs" />
+        </div>
+        
+        <!-- Right Column: Results & Features (Sticky) -->
+        <div class="results-sidebar sticky">
+          <CalculatorResults :results="results" />
+          <!-- The chart will be injected here inside CalculatorResults or placed below it -->
+        </div>
       </div>
 
       <SocialProof />
     </div>
+
+    <!-- Sticky Bottom Summary Bar -->
+    <div class="sticky-bottom-bar fade-up">
+      <div class="container sticky-bar-content">
+        <div class="sticky-text">
+          ESTIMATED CASE VALUE <span class="sticky-value">{{ formatCurrency(calculatedResults.finalSettlement) }}</span>
+        </div>
+        <button class="btn-primary">
+          Maximize your payout
+        </button>
+      </div>
+    </div>
   </div>
 </template>
+
+<style scoped>
+/* Specific sticky bar or component overrides if needed */
+</style>
 
 <style scoped>
 .text-center { text-align: center; }

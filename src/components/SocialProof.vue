@@ -8,12 +8,12 @@
         <div class="logo-item">GEICO</div>
         <div class="logo-item">PROGRESSIVE</div>
         <div class="logo-item">ALLSTATE</div>
-        <div class="logo-item">LIBERTY MUTUAL</div>
+        <div class="logo-item">OTHER INSURANCE COMPANIES</div>
       </div>
       
       <div class="proof-statement" style="margin-top: 4rem; max-width: 600px; margin-inline: auto;">
         <p style="font-size: 1.25rem; font-weight: 400; color: white; font-style: italic;">
-          "Proof Over Promises. We've recovered millions for accident victims in Georgia."
+          "Proof Over Promises. We've recovered millions for accident victims in Florida."
         </p>
       </div>
     </div>

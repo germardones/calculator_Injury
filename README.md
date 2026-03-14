@@ -6,7 +6,7 @@ A premium, modern web application built with Vue 3 to estimate the potential val
 
 - **Economic Loss Calculation**: Easily input medical expenses, lost income, property damage, and out-of-pocket costs.
 - **Pain & Suffering Multiplier**: Adjustable slider (1x - 5x) to account for non-economic damages based on injury severity.
-- **Comparative Fault Deduction**: Implements modified comparative fault rules (e.g., Georgia's 50% rule where compensation drops to $0 if the plaintiff is $\ge$ 50% at fault).
+- **Comparative Fault Deduction**: Implements modified comparative fault rules (e.g., Florida's 50% rule where compensation drops to $0 if the plaintiff is $\ge$ 50% at fault).
 - **Insurance Policy Limits**: Optional cap to adjust the final estimated settlement based on available insurance coverage.
 - **Contextual Tooltips**: Interactive "help" popups on every input field providing real-world examples and definitions for legal terms.
 - **Dynamic Visual Breakdown**: Real-time percentage visualization showing the composition of the estimated value (Economic vs. Non-Economic).

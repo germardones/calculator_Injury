@@ -35,7 +35,7 @@ const results = computed(() => {
   
   let finalSettlement = totalBeforeAdjustment;
 
-  // Apply Fault (Georgia Rule)
+  // Apply Fault (Florida Rule)
   const faultPercent = Number(inputs.value.fault);
   const faultDeduction = totalBeforeAdjustment * (faultPercent / 100);
   
@@ -70,7 +70,7 @@ const results = computed(() => {
       <header class="calculator-header text-center fade-up" style="margin-bottom: 3rem;">
         <h1 style="font-size: 3.5rem; line-height: 1;">ESTIMATE YOUR<br>CASE VALUE</h1>
         <p style="color: var(--text-secondary); margin-top: 1.5rem; font-weight: 500;">
-          Personal Injury Calculator based on Georgia legal standards.
+          Personal Injury Calculator based on Florida legal standards.
         </p>
       </header>
 
@@ -81,7 +81,7 @@ const results = computed(() => {
         </div>
         
         <!-- Right Column: Results & Features (Sticky) -->
-        <div class="results-sidebar sticky">
+        <div class="results-sidebar sticky" style="position: relative; z-index: 10;">
           <CalculatorResults :results="results" />
           <!-- The chart will be injected here inside CalculatorResults or placed below it -->
         </div>
@@ -91,10 +91,10 @@ const results = computed(() => {
     </div>
 
     <!-- Sticky Bottom Summary Bar -->
-    <div class="sticky-bottom-bar fade-up">
+    <div class="sticky-bottom-bar" style="z-index: 99999;">
       <div class="container sticky-bar-content">
         <div class="sticky-text">
-          ESTIMATED CASE VALUE <span class="sticky-value">{{ formatCurrency(calculatedResults.finalSettlement) }}</span>
+          ESTIMATED CASE VALUE <span class="sticky-value">{{ formatCurrency(results.finalSettlement) }}</span>
         </div>
         <button class="btn-primary">
           Maximize your payout

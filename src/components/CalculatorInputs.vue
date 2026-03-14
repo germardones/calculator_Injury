@@ -190,7 +190,7 @@ const descriptions = {
           @input="updateField('fault', $event.target.value)"
         />
         <p class="warning-text" v-if="modelValue.fault >= 50">
-          Note: In Georgia, if your fault is ≥ 50%, compensation is $0.
+          Note: In Florida, if your fault is ≥ 50%, compensation is $0.
         </p>
       </div>
 

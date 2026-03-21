@@ -70,7 +70,7 @@ const results = computed(() => {
   <div class="calculator-wrapper">
     <div class="container">
       <header class="calculator-header text-center fade-up" style="margin-bottom: 3rem;">
-        <h1 style="font-size: 3.5rem; line-height: 1;">ESTIMATE YOUR<br>CASE VALUE</h1>
+        <h1 class="main-title">ESTIMATE YOUR<br>CASE VALUE</h1>
         <p style="color: var(--text-secondary); margin-top: 1.5rem; font-weight: 500;">
           Personal Injury Calculator based on Florida legal standards.
         </p>
@@ -127,6 +127,15 @@ const results = computed(() => {
 
 <style scoped>
 /* Specific sticky bar or component overrides if needed */
+.main-title {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2.25rem;
+  }
+}
 .text-center { text-align: center; }
 
 /* Modal Styles */
@@ -134,8 +143,8 @@ const results = computed(() => {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);

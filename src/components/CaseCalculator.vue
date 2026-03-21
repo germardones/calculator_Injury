@@ -16,10 +16,10 @@ const formatCurrency = (val) => {
 const isModalOpen = ref(false);
 
 const inputs = ref({
-  medicalExpenses: 0,
-  lostIncome: 0,
-  propertyDamage: 0,
-  outOfPocket: 0,
+  medicalExpenses: '',
+  lostIncome: '',
+  propertyDamage: '',
+  outOfPocket: '',
   multiplier: 1.5,
   fault: 0,
   policyLimit: null
@@ -99,7 +99,7 @@ const results = computed(() => {
           ESTIMATED CASE VALUE <span class="sticky-value">{{ formatCurrency(results.finalSettlement) }}</span>
         </div>
         <button class="btn-primary" @click="isModalOpen = true">
-          Maximize your payout
+          Click here to maximize your payout
         </button>
       </div>
     </div>

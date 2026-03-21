@@ -21,4 +21,10 @@
   line-height: 1.5;
   opacity: 0.6;
 }
+
+@media (max-width: 768px) {
+  .disclaimer {
+    padding-bottom: 4rem;
+  }
+}
 </style>

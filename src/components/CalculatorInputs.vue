@@ -17,6 +17,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const activeTooltip = ref(null);
+const isTouch = ref(false);
 
 const toggleTooltip = (field) => {
   if (activeTooltip.value === field) {
@@ -30,11 +31,17 @@ const closeTooltips = () => {
   activeTooltip.value = null;
 };
 
+const setTouch = () => {
+  isTouch.value = true;
+};
+
 onMounted(() => {
+  document.addEventListener('touchstart', setTouch, { passive: true });
   document.addEventListener('click', closeTooltips);
 });
 
 onUnmounted(() => {
+  document.removeEventListener('touchstart', setTouch);
   document.removeEventListener('click', closeTooltips);
 });
 
@@ -48,7 +55,8 @@ const descriptions = {
   propertyDamage: "Costs to repair or replace property damaged in the incident, such as vehicles, electronics, or personal belongings.\n\nExample: $3,000 to repair a car after a collision.",
   outOfPocket: "Miscellaneous costs personally paid due to the incident, like transportation to medical appointments or hiring assistance at home.\n\nExample: $200 in Uber rides to doctor visits.",
   multiplier: "A number representing the severity of physical pain, emotional distress, and overall life impact. A higher number indicates more serious or long-lasting injuries.\n\n• 1 = Minor cuts and bruises\n• 3 = Broken bone with moderate recovery time\n• 5 = Long-term disability or chronic pain",
-  fault: "Percentage of fault attributed to the injured party. In many states, compensation may be reduced if the injured party is partially at fault.\n\nExample: If you are found to be 20% at fault, your compensation may be reduced by 20%."
+  fault: "Percentage of fault attributed to the injured party. In many states, compensation may be reduced if the injured party is partially at fault.\n\nExample: If you are found to be 20% at fault, your compensation may be reduced by 20%.",
+  policyLimit: "Maximum compensation cap from the insurer. This limits the total amount that the insurance company can legally pay out for this claim."
 };
 </script>
 
@@ -63,7 +71,7 @@ const descriptions = {
       <div class="input-group">
         <div class="input-label-container">
           <label class="input-label">Medical Expenses</label>
-          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'medical' }" @mouseenter="activeTooltip = 'medical'" @mouseleave="activeTooltip = null" @click.stop="toggleTooltip('medical')">
+          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'medical' }" @mouseenter="!isTouch && (activeTooltip = 'medical')" @mouseleave="!isTouch && (activeTooltip = null)" @click.stop="toggleTooltip('medical')">
             <HelpCircle :size="14" />
             <div v-if="activeTooltip === 'medical'" class="info-popup">
               <strong>Medical Expenses</strong>
@@ -87,7 +95,7 @@ const descriptions = {
       <div class="input-group">
         <div class="input-label-container">
           <label class="input-label">Lost Income</label>
-          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'lostIncome' }" @mouseenter="activeTooltip = 'lostIncome'" @mouseleave="activeTooltip = null" @click.stop="toggleTooltip('lostIncome')">
+          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'lostIncome' }" @mouseenter="!isTouch && (activeTooltip = 'lostIncome')" @mouseleave="!isTouch && (activeTooltip = null)" @click.stop="toggleTooltip('lostIncome')">
             <HelpCircle :size="14" />
             <div v-if="activeTooltip === 'lostIncome'" class="info-popup">
               <strong>Lost Income</strong>
@@ -111,7 +119,7 @@ const descriptions = {
       <div class="input-group">
         <div class="input-label-container">
           <label class="input-label">Property Damage</label>
-          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'propertyDamage' }" @mouseenter="activeTooltip = 'propertyDamage'" @mouseleave="activeTooltip = null" @click.stop="toggleTooltip('propertyDamage')">
+          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'propertyDamage' }" @mouseenter="!isTouch && (activeTooltip = 'propertyDamage')" @mouseleave="!isTouch && (activeTooltip = null)" @click.stop="toggleTooltip('propertyDamage')">
             <HelpCircle :size="14" />
             <div v-if="activeTooltip === 'propertyDamage'" class="info-popup">
               <strong>Property Damage</strong>
@@ -135,7 +143,7 @@ const descriptions = {
       <div class="input-group">
         <div class="input-label-container">
           <label class="input-label">Out-of-Pocket Expenses</label>
-          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'outOfPocket' }" @mouseenter="activeTooltip = 'outOfPocket'" @mouseleave="activeTooltip = null" @click.stop="toggleTooltip('outOfPocket')">
+          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'outOfPocket' }" @mouseenter="!isTouch && (activeTooltip = 'outOfPocket')" @mouseleave="!isTouch && (activeTooltip = null)" @click.stop="toggleTooltip('outOfPocket')">
             <HelpCircle :size="14" />
             <div v-if="activeTooltip === 'outOfPocket'" class="info-popup">
               <strong>Out-of-Pocket Expenses</strong>
@@ -159,7 +167,7 @@ const descriptions = {
       <div class="input-group">
         <div class="input-label-container">
           <label class="input-label">Pain & Suffering Multiplier ({{ modelValue.multiplier }}x)</label>
-          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'multiplier' }" @mouseenter="activeTooltip = 'multiplier'" @mouseleave="activeTooltip = null" @click.stop="toggleTooltip('multiplier')">
+          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'multiplier' }" @mouseenter="!isTouch && (activeTooltip = 'multiplier')" @mouseleave="!isTouch && (activeTooltip = null)" @click.stop="toggleTooltip('multiplier')">
             <HelpCircle :size="14" />
             <div v-if="activeTooltip === 'multiplier'" class="info-popup">
               <strong>Pain & Suffering Multiplier</strong>
@@ -186,7 +194,7 @@ const descriptions = {
       <div class="input-group">
         <div class="input-label-container">
           <label class="input-label">Fault or Liability Level ({{ modelValue.fault }}%)</label>
-          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'fault' }" @mouseenter="activeTooltip = 'fault'" @mouseleave="activeTooltip = null" @click.stop="toggleTooltip('fault')">
+          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'fault' }" @mouseenter="!isTouch && (activeTooltip = 'fault')" @mouseleave="!isTouch && (activeTooltip = null)" @click.stop="toggleTooltip('fault')">
             <HelpCircle :size="14" />
             <div v-if="activeTooltip === 'fault'" class="info-popup">
               <strong>Fault or Liability Level</strong>
@@ -208,7 +216,16 @@ const descriptions = {
 
       <!-- Límite Póliza -->
       <div class="input-group">
-        <label class="input-label">Policy Limit ($)</label>
+        <div class="input-label-container">
+          <label class="input-label">Policy Limit ($)</label>
+          <button class="info-toggle" :class="{ 'active-tooltip': activeTooltip === 'policyLimit' }" @mouseenter="!isTouch && (activeTooltip = 'policyLimit')" @mouseleave="!isTouch && (activeTooltip = null)" @click.stop="toggleTooltip('policyLimit')">
+            <HelpCircle :size="14" />
+            <div v-if="activeTooltip === 'policyLimit'" class="info-popup">
+              <strong>Policy Limit</strong>
+              {{ descriptions.policyLimit }}
+            </div>
+          </button>
+        </div>
         <div class="input-container">
           <ShieldCheck class="input-icon" />
           <input 
@@ -219,9 +236,6 @@ const descriptions = {
             placeholder="No limit"
           />
         </div>
-        <p class="slider-info" style="margin-top: 0.5rem">
-          <Info :size="12" /> Maximum compensation cap from the insurer.
-        </p>
       </div>
     </div>
   </div>

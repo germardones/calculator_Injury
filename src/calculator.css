@@ -119,6 +119,10 @@
     color: white;
 }
 
+.info-toggle.active-tooltip {
+    z-index: 1000;
+}
+
 /* Tooltip/Popup style */
 .info-popup {
     position: absolute;

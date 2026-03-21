@@ -8,7 +8,7 @@ import {
   Info,
   HelpCircle
 } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const props = defineProps({
   modelValue: Object
@@ -25,6 +25,18 @@ const toggleTooltip = (field) => {
     activeTooltip.value = field;
   }
 };
+
+const closeTooltips = () => {
+  activeTooltip.value = null;
+};
+
+onMounted(() => {
+  document.addEventListener('click', closeTooltips);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', closeTooltips);
+});
 
 const updateField = (field, value) => {
   emit('update:modelValue', { ...props.modelValue, [field]: value });
@@ -51,7 +63,7 @@ const descriptions = {
       <div class="input-group">
         <div class="input-label-container">
           <label class="input-label">Medical Expenses</label>
-          <button class="info-toggle" @click="toggleTooltip('medical')">
+          <button class="info-toggle" @mouseenter="activeTooltip = 'medical'" @mouseleave="activeTooltip = null" @click.stop="toggleTooltip('medical')">
             <HelpCircle :size="14" />
             <div v-if="activeTooltip === 'medical'" class="info-popup">
               <strong>Medical Expenses</strong>
@@ -75,7 +87,7 @@ const descriptions = {
       <div class="input-group">
         <div class="input-label-container">
           <label class="input-label">Lost Income</label>
-          <button class="info-toggle" @click="toggleTooltip('lostIncome')">
+          <button class="info-toggle" @mouseenter="activeTooltip = 'lostIncome'" @mouseleave="activeTooltip = null" @click.stop="toggleTooltip('lostIncome')">
             <HelpCircle :size="14" />
             <div v-if="activeTooltip === 'lostIncome'" class="info-popup">
               <strong>Lost Income</strong>
@@ -99,7 +111,7 @@ const descriptions = {
       <div class="input-group">
         <div class="input-label-container">
           <label class="input-label">Property Damage</label>
-          <button class="info-toggle" @click="toggleTooltip('propertyDamage')">
+          <button class="info-toggle" @mouseenter="activeTooltip = 'propertyDamage'" @mouseleave="activeTooltip = null" @click.stop="toggleTooltip('propertyDamage')">
             <HelpCircle :size="14" />
             <div v-if="activeTooltip === 'propertyDamage'" class="info-popup">
               <strong>Property Damage</strong>
@@ -123,7 +135,7 @@ const descriptions = {
       <div class="input-group">
         <div class="input-label-container">
           <label class="input-label">Out-of-Pocket Expenses</label>
-          <button class="info-toggle" @click="toggleTooltip('outOfPocket')">
+          <button class="info-toggle" @mouseenter="activeTooltip = 'outOfPocket'" @mouseleave="activeTooltip = null" @click.stop="toggleTooltip('outOfPocket')">
             <HelpCircle :size="14" />
             <div v-if="activeTooltip === 'outOfPocket'" class="info-popup">
               <strong>Out-of-Pocket Expenses</strong>
@@ -147,7 +159,7 @@ const descriptions = {
       <div class="input-group">
         <div class="input-label-container">
           <label class="input-label">Pain & Suffering Multiplier ({{ modelValue.multiplier }}x)</label>
-          <button class="info-toggle" @click="toggleTooltip('multiplier')">
+          <button class="info-toggle" @mouseenter="activeTooltip = 'multiplier'" @mouseleave="activeTooltip = null" @click.stop="toggleTooltip('multiplier')">
             <HelpCircle :size="14" />
             <div v-if="activeTooltip === 'multiplier'" class="info-popup">
               <strong>Pain & Suffering Multiplier</strong>
@@ -174,7 +186,7 @@ const descriptions = {
       <div class="input-group">
         <div class="input-label-container">
           <label class="input-label">Fault or Liability Level ({{ modelValue.fault }}%)</label>
-          <button class="info-toggle" @click="toggleTooltip('fault')">
+          <button class="info-toggle" @mouseenter="activeTooltip = 'fault'" @mouseleave="activeTooltip = null" @click.stop="toggleTooltip('fault')">
             <HelpCircle :size="14" />
             <div v-if="activeTooltip === 'fault'" class="info-popup">
               <strong>Fault or Liability Level</strong>

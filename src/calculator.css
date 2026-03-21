@@ -20,6 +20,12 @@
     }
 }
 
+@media (max-width: 768px) {
+    .calculator-wrapper {
+        padding: 2rem 0.5rem;
+    }
+}
+
 /* --- NEW: Phase 2 Dashboard Grid --- */
 .dashboard-grid {
     display: grid;
@@ -189,6 +195,15 @@
     /* Slightly more rounded for main card */
 }
 
+@media (max-width: 768px) {
+    .results-card {
+        padding: 1.5rem;
+        max-width: 450px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
 .result-header {
     text-align: center;
 }
@@ -233,7 +248,7 @@
 .proof-title {
     font-size: 0.75rem;
     font-weight: 800;
-    color: var(--text-secondary);
+    color: #a0a0a0;
     margin-bottom: 3rem;
 }
 

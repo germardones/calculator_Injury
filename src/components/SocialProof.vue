@@ -8,6 +8,7 @@
         <div class="logo-item">GEICO</div>
         <div class="logo-item">PROGRESSIVE</div>
         <div class="logo-item">ALLSTATE</div>
+        <div class="logo-item">LIBERTY MUTUAL</div>
         <div class="logo-item">OTHER INSURANCE COMPANIES</div>
       </div>
       

@@ -13,6 +13,8 @@ const formatCurrency = (val) => {
   }).format(val || 0);
 };
 
+const isModalOpen = ref(false);
+
 const inputs = ref({
   medicalExpenses: 0,
   lostIncome: 0,
@@ -82,7 +84,7 @@ const results = computed(() => {
         
         <!-- Right Column: Results & Features (Sticky) -->
         <div class="results-sidebar sticky" style="position: relative; z-index: 10;">
-          <CalculatorResults :results="results" />
+          <CalculatorResults :results="results" @open-modal="isModalOpen = true" />
           <!-- The chart will be injected here inside CalculatorResults or placed below it -->
         </div>
       </div>
@@ -96,9 +98,28 @@ const results = computed(() => {
         <div class="sticky-text">
           ESTIMATED CASE VALUE <span class="sticky-value">{{ formatCurrency(results.finalSettlement) }}</span>
         </div>
-        <button class="btn-primary">
+        <button class="btn-primary" @click="isModalOpen = true">
           Maximize your payout
         </button>
+      </div>
+    </div>
+
+    <!-- Contact Modal Base -->
+    <div v-if="isModalOpen" class="modal-overlay" @click="isModalOpen = false">
+      <div class="modal-content fade-up" @click.stop>
+        <div class="modal-header">
+          <h2 style="color: white; font-size: 1.5rem;">Talk to a Lawyer</h2>
+          <button class="close-btn" @click="isModalOpen = false">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+            Please provide your details below and one of our legal experts will get back to you shortly.
+          </p>
+          <!-- Base for future form -->
+          <div style="border: 1px dashed var(--border-color); padding: 3rem; text-align: center; border-radius: 8px;">
+            <p style="color: #666;">[Contact Form Component Will Go Here]</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -106,8 +127,54 @@ const results = computed(() => {
 
 <style scoped>
 /* Specific sticky bar or component overrides if needed */
-</style>
-
-<style scoped>
 .text-center { text-align: center; }
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: white;
+}
 </style>

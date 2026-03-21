@@ -6,6 +6,8 @@ const props = defineProps({
   results: Object
 });
 
+const emit = defineEmits(['open-modal']);
+
 const formatCurrency = (val) => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -40,7 +42,7 @@ const painPercent = computed(() => {
         <div class="cta-alert" style="margin-top: 1rem;">
           <h4 style="margin-bottom: 0.5rem; font-weight: 700; font-size: 1.1rem; color: #fff;">Want to maximize your payout?</h4>
           <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #e0e0e0;">Our experienced attorneys fight to make sure you get every dollar you deserve.</p>
-          <button class="btn-primary" style="width: 100%;">
+          <button class="btn-primary" style="width: 100%;" @click="emit('open-modal')">
             TALK TO A TRUSTED LAWYER NOW 
           </button>
         </div>

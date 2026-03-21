@@ -5,7 +5,7 @@
   --surface-color: #0c0c0c;
   --border-color: #1f1f1f;
   --text-primary: #ffffff;
-  --text-secondary: #a0a0a0;
+  --text-secondary: #ffffff;
   --accent-color: #e5e5e5;
   --primary-gradient: linear-gradient(135deg, #f8f9fa 0%, #d1d5db 100%);
   --font-main: 'Inter', sans-serif;
@@ -41,6 +41,12 @@ h4 {
   padding: 2rem;
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -71,11 +77,12 @@ h4 {
 /* Input Styles */
 input[type="number"],
 input[type="text"] {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-color);
   color: white;
   padding: 0.75rem 1rem;
   width: 100%;
+  max-width: 100%;
   font-size: 1rem;
   outline: none;
   transition: border-color 0.2s;
@@ -93,6 +100,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+  appearance: textfield;
   /* Firefox */
 }
 

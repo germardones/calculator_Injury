@@ -78,7 +78,7 @@ const results = computed(() => {
 
       <div class="dashboard-grid">
         <!-- Left Column: Inputs -->
-        <div class="inputs-column">
+        <div class="inputs-column" style="position: relative; z-index: 20;">
           <CalculatorInputs v-model="inputs" />
         </div>
         

@@ -1,6 +1,6 @@
 <template>
   <footer class="legal-footer">
-    <div class="container" style="padding: 4rem 1rem; border-top: 1px solid var(--border-color); text-align: center;">
+    <div class="footer-container">
       <p class="disclaimer">
         This is an estimate based on general formulas and does not constitute legal advice. 
         Each case is unique, and past results do not guarantee future outcomes.
@@ -22,9 +22,17 @@
   opacity: 0.6;
 }
 
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1rem 8rem 1rem;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+
 @media (max-width: 768px) {
-  .disclaimer {
-    padding-bottom: 4rem;
+  .footer-container {
+    padding: 3rem 1rem 12rem 1rem;
   }
 }
 </style>

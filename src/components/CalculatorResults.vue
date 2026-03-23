@@ -49,7 +49,10 @@ const painPercent = computed(() => {
       </div>
 
       <div class="breakdown-section">
-        <h3 class="section-title" style="margin-bottom: 1rem;">ESTIMATED BREAKDOWN</h3>
+        <h3 class="section-title" style="margin-bottom: 0.5rem;">ESTIMATED BREAKDOWN</h3>
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.4;">
+          Disclaimer: The figure provided is an estimate. Consult with a qualified attorney to discuss the merits of your case and confirm your evaluation.
+        </p>
         
         <div class="breakdown-details">
           <div class="breakdown-row">
@@ -74,6 +77,7 @@ const painPercent = computed(() => {
     
     <!-- Dynamic SVG Donut Chart -->
     <CalculatorChart 
+      v-if="results.totalBeforeAdjustment > 0"
       :economicLosses="results.economicLosses" 
       :painAndSuffering="results.painAndSuffering" 
     />

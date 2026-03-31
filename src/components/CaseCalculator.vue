@@ -241,6 +241,8 @@ watch(isModalOpen, (newVal) => {
   padding: 2rem;
   position: relative;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-header {

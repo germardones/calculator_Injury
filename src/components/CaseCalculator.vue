@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue';
 import CalculatorInputs from './CalculatorInputs.vue';
 import CalculatorResults from './CalculatorResults.vue';
 import SocialProof from './SocialProof.vue';
+import ContactForm from './ContactForm.vue';
 import '../calculator.css';
 
 const formatCurrency = (val) => {
@@ -14,6 +15,8 @@ const formatCurrency = (val) => {
 };
 
 const isModalOpen = ref(false);
+const submissionStatus = ref('idle');
+const submissionError = ref('');
 
 const inputs = ref({
   medicalExpenses: '',
@@ -64,6 +67,81 @@ const results = computed(() => {
     isLimited
   };
 });
+
+const handleZapierSubmit = async (formData) => {
+  submissionStatus.value = 'loading';
+  submissionError.value = '';
+
+  const webhookUrl = import.meta.env.VITE_ZAPIER_WEBHOOK_URL;
+
+  if (!webhookUrl) {
+    console.warn('Zapier Webhook URL is missing in .env');
+    submissionStatus.value = 'error';
+    submissionError.value = 'Configuration Error: Zapier Webhook URL is missing. Please add VITE_ZAPIER_WEBHOOK_URL to your .env file.';
+    return;
+  }
+
+  const payload = {
+    contact: formData,
+    calculator: {
+      inputs: {
+        medicalExpenses: inputs.value.medicalExpenses || 0,
+        lostIncome: inputs.value.lostIncome || 0,
+        propertyDamage: inputs.value.propertyDamage || 0,
+        outOfPocket: inputs.value.outOfPocket || 0,
+        multiplier: inputs.value.multiplier,
+        fault: inputs.value.fault,
+        policyLimit: inputs.value.policyLimit
+      },
+      results: {
+        economicLosses: results.value.economicLosses,
+        painAndSuffering: results.value.painAndSuffering,
+        totalBeforeAdjustment: results.value.totalBeforeAdjustment,
+        faultDeduction: results.value.faultDeduction,
+        finalSettlement: results.value.finalSettlement,
+        isLimited: results.value.isLimited
+      },
+      formattedSettlement: formatCurrency(results.value.finalSettlement)
+    },
+    meta: {
+      timestamp: new Date().toISOString(),
+      userAgent: navigator.userAgent,
+      pageUrl: window.location.href
+    }
+  };
+
+  try {
+    // Note: We use no-cors to avoid preflight issues with typical Zapier Webhook setups
+    // unless the user specifically enables CORS on the Zap side.
+    await fetch(webhookUrl, {
+      method: 'POST',
+      mode: 'no-cors', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    // Since mode: 'no-cors' makes the response opaque, we assume success if no error is thrown
+    submissionStatus.value = 'success';
+  } catch (error) {
+    console.error('Zapier Submission Error:', error);
+    submissionStatus.value = 'error';
+    submissionError.value = 'There was a technical problem sending your data. Please try again or contact support.';
+  }
+};
+
+const resetSubmission = () => {
+  submissionStatus.value = 'idle';
+  submissionError.value = '';
+};
+
+// Reset form when modal opens
+watch(isModalOpen, (newVal) => {
+  if (newVal) {
+    resetSubmission();
+  }
+});
 </script>
 
 <template>
@@ -112,13 +190,12 @@ const results = computed(() => {
           <button class="close-btn" @click="isModalOpen = false">&times;</button>
         </div>
         <div class="modal-body">
-          <p style="color: var(--text-secondary); margin-bottom: 2rem;">
-            Please provide your details below and one of our legal experts will get back to you shortly.
-          </p>
-          <!-- Base for future form -->
-          <div style="border: 1px dashed var(--border-color); padding: 3rem; text-align: center; border-radius: 8px;">
-            <p style="color: #666;">[Contact Form Component Will Go Here]</p>
-          </div>
+          <ContactForm 
+            :status="submissionStatus" 
+            :error-message="submissionError"
+            @submit="handleZapierSubmit"
+            @reset-status="resetSubmission"
+          />
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { User, Mail, Phone, MessageSquare, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-vue-next';
+import { User, Mail, Phone, MessageSquare, Send, Loader2, CheckCircle2, AlertCircle, HelpCircle, ChevronDown } from 'lucide-vue-next';
 
 const props = defineProps({
   status: {
@@ -16,10 +16,18 @@ const props = defineProps({
 const emit = defineEmits(['submit']);
 
 const formData = ref({
+  medicalErrorOccurred: '',
+  inFlorida: '',
+  responsibleParty: '',
+  whenOccurred: '',
+  resultedInAdditional: '',
+  settlementOffer: '',
+  attorneyRepresentation: '',
   name: '',
   email: '',
   phone: '',
-  message: ''
+  receiveEmail: false,
+  consentSMS: false
 });
 
 const handleSubmit = () => {
@@ -45,6 +53,109 @@ const handleSubmit = () => {
 
     <form v-else @submit.prevent="handleSubmit" class="fade-up">
       <div class="form-grid">
+        <!-- Questionnaire Fields -->
+        <div class="input-group full-width">
+          <label class="input-label">Do you believe a medical error occurred?</label>
+          <div class="input-container">
+            <HelpCircle class="input-icon" />
+            <select v-model="formData.medicalErrorOccurred" required :disabled="status === 'loading'">
+              <option value="" disabled>Select an option</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+            <ChevronDown class="select-arrow" />
+          </div>
+        </div>
+
+        <div class="input-group full-width">
+          <label class="input-label">Did the medical treatment or injury occur within the state of Florida?</label>
+          <div class="input-container">
+            <HelpCircle class="input-icon" />
+            <select v-model="formData.inFlorida" required :disabled="status === 'loading'">
+              <option value="" disabled>Select an option</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+            <ChevronDown class="select-arrow" />
+          </div>
+        </div>
+
+        <div class="input-group full-width">
+          <label class="input-label">Who was primarily responsible for the alleged error?</label>
+          <div class="input-container">
+            <HelpCircle class="input-icon" />
+            <select v-model="formData.responsibleParty" required :disabled="status === 'loading'">
+              <option value="" disabled>Select an option</option>
+              <option value="Doctor/Surgeon">Doctor/Surgeon</option>
+              <option value="Hospital/Clinic">Hospital/Clinic</option>
+              <option value="Nurse/Staff">Nurse/Staff</option>
+              <option value="Pharmacist">Pharmacist</option>
+              <option value="Other">Other</option>
+            </select>
+            <ChevronDown class="select-arrow" />
+          </div>
+        </div>
+
+        <div class="input-group full-width">
+          <label class="input-label">When did the injury or accident occur?</label>
+          <div class="input-container">
+            <HelpCircle class="input-icon" />
+            <select v-model="formData.whenOccurred" required :disabled="status === 'loading'">
+              <option value="" disabled>Select an option</option>
+              <option value="Within the last 6 months">Within the last 6 months</option>
+              <option value="6 months to 1 year ago">6 months to 1 year ago</option>
+              <option value="More than 1 year ago">More than 1 year ago</option>
+            </select>
+            <ChevronDown class="select-arrow" />
+          </div>
+        </div>
+
+        <div class="input-group full-width">
+          <label class="input-label">Did the error result in additional surgery, prolonged hospitalization, or a permanent injury?</label>
+          <div class="input-container">
+            <HelpCircle class="input-icon" />
+            <select v-model="formData.resultedInAdditional" required :disabled="status === 'loading'">
+              <option value="" disabled>Select an option</option>
+              <option value="Yes, I had additional surgery/treatment">Yes, I had additional surgery/treatment</option>
+              <option value="Yes, I suffered a permanent injury">Yes, I suffered a permanent injury</option>
+              <option value="No, but I suffered other harm">No, but I suffered other harm</option>
+              <option value="Not Sure">Not Sure</option>
+            </select>
+            <ChevronDown class="select-arrow" />
+          </div>
+        </div>
+
+        <div class="input-group full-width">
+          <label class="input-label">Have you already received a settlement offer or "Policy Limits" payment for this accident?</label>
+          <div class="input-container">
+            <HelpCircle class="input-icon" />
+            <select v-model="formData.settlementOffer" required :disabled="status === 'loading'">
+              <option value="" disabled>Select an option</option>
+              <option value="No, I have not received an offer yet">No, I have not received an offer yet</option>
+              <option value="Yes, I have received/accepted a settlement">Yes, I have received/accepted a settlement</option>
+              <option value="I'm not sure">I'm not sure</option>
+            </select>
+            <ChevronDown class="select-arrow" />
+          </div>
+        </div>
+
+        <div class="input-group full-width">
+          <label class="input-label">Are you currently represented by an attorney, or have you been turned down by other firms for this claim?</label>
+          <div class="input-container">
+            <HelpCircle class="input-icon" />
+            <select v-model="formData.attorneyRepresentation" required :disabled="status === 'loading'">
+              <option value="" disabled>Select an option</option>
+              <option value="No, I am looking for my first attorney">No, I am looking for my first attorney</option>
+              <option value="I have spoken to others but haven't hired anyone">I have spoken to others but haven't hired anyone</option>
+              <option value="Yes, I am currently represented">Yes, I am currently represented</option>
+              <option value="I have been turned down by other firms">I have been turned down by other firms</option>
+            </select>
+            <ChevronDown class="select-arrow" />
+          </div>
+        </div>
+
+        <hr class="form-separator full-width" />
+
         <!-- Name -->
         <div class="input-group">
           <label class="input-label">Full Name</label>
@@ -90,18 +201,29 @@ const handleSubmit = () => {
           </div>
         </div>
 
-        <!-- Message -->
-        <div class="input-group full-width">
-          <label class="input-label">Brief Description of the Incident (Optional)</label>
-          <div class="input-container">
-            <MessageSquare class="input-icon textarea-icon" />
-            <textarea 
-              v-model="formData.message" 
-              placeholder="Tell us what happened..."
+        <!-- Consent Checkboxes -->
+        <div class="input-group full-width checkbox-container">
+          <label class="checkbox-label">
+            <input 
+              type="checkbox" 
+              v-model="formData.receiveEmail" 
               :disabled="status === 'loading'"
-              rows="4"
-            ></textarea>
-          </div>
+              class="custom-checkbox"
+            />
+            <span class="checkbox-text">Receive the breakdown information via email</span>
+          </label>
+        </div>
+
+        <div class="input-group full-width checkbox-container">
+          <label class="checkbox-label">
+            <input 
+              type="checkbox" 
+              v-model="formData.consentSMS" 
+              :disabled="status === 'loading'"
+              class="custom-checkbox"
+            />
+            <span class="checkbox-text">I consent to receive messages related to my case. Message frequency may vary. Message & Data rates may apply. Reply HELP for help or STOP to opt-out.</span>
+          </label>
         </div>
       </div>
 
@@ -112,7 +234,7 @@ const handleSubmit = () => {
         </template>
         <template v-else>
           <Send :size="20" />
-          Maximize My Payout
+          I want to know more about how to maximize my payout
         </template>
       </button>
 
@@ -168,7 +290,7 @@ const handleSubmit = () => {
   top: 1rem;
 }
 
-input, textarea {
+input, textarea, select {
   width: 100%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-color);
@@ -178,16 +300,62 @@ input, textarea {
   font-family: inherit;
   font-size: 1rem;
   transition: all 0.2s;
+  appearance: none;
+}
+
+select option {
+  background-color: #1a1a1a;
+  color: white;
 }
 
 textarea {
   resize: vertical;
 }
 
-input:focus, textarea:focus {
+.checkbox-container {
+  margin-top: 0.5rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.custom-checkbox {
+  width: auto;
+  appearance: auto;
+  margin-top: 0.25rem;
+  padding: 0;
+}
+
+.checkbox-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: white;
   background: rgba(255, 255, 255, 0.08);
+}
+
+.select-arrow {
+  position: absolute;
+  right: 1.25rem;
+  color: var(--text-secondary);
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+.form-separator {
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin: 1.5rem 0 0.5rem 0;
+  width: 100%;
 }
 
 .submit-btn {

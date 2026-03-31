@@ -14,7 +14,7 @@ const props = defineProps({
   modelValue: Object
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'open-modal']);
 
 const activeTooltip = ref(null);
 const isTouch = ref(false);
@@ -239,6 +239,13 @@ const descriptions = {
             placeholder="No limit"
           />
         </div>
+      </div>
+
+      <!-- Extended CTA below inputs -->
+      <div style="grid-column: 1 / -1; margin-top: 1rem;">
+        <button class="btn-primary" style="width: 100%; display: flex; align-items: center; justify-content: center; padding: 1rem; font-size: 1.1rem;" @click="$emit('open-modal')">
+          Email Me a Copy of This Information
+        </button>
       </div>
     </div>
   </div>

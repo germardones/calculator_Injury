@@ -157,7 +157,7 @@ watch(isModalOpen, (newVal) => {
       <div class="dashboard-grid">
         <!-- Left Column: Inputs -->
         <div class="inputs-column" style="position: relative; z-index: 20;">
-          <CalculatorInputs v-model="inputs" />
+          <CalculatorInputs v-model="inputs" @open-modal="isModalOpen = true" />
         </div>
         
         <!-- Right Column: Results & Features -->

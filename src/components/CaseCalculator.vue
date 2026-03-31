@@ -160,8 +160,8 @@ watch(isModalOpen, (newVal) => {
           <CalculatorInputs v-model="inputs" />
         </div>
         
-        <!-- Right Column: Results & Features (Sticky) -->
-        <div class="results-sidebar sticky" style="position: relative; z-index: 10;">
+        <!-- Right Column: Results & Features -->
+        <div class="results-sidebar" style="position: relative; z-index: 10;">
           <CalculatorResults :results="results" @open-modal="isModalOpen = true" />
           <!-- The chart will be injected here inside CalculatorResults or placed below it -->
         </div>

@@ -25,14 +25,14 @@
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 1rem 8rem 1rem;
+  padding: 4rem 1rem 6rem 1rem;
   border-top: 1px solid var(--border-color);
   text-align: center;
 }
 
 @media (max-width: 768px) {
   .footer-container {
-    padding: 3rem 1rem 12rem 1rem;
+    padding: 3rem 1rem 8rem 1rem;
   }
 }
 </style>

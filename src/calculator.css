@@ -50,22 +50,7 @@
     gap: 1.5rem;
 }
 
-@media (min-width: 992px) {
-    .results-sidebar.sticky {
-        position: sticky;
-        top: 2rem;
-        /* The offset from the top when scrolling */
-        /* Make sure the sidebar doesn't overflow the viewport height, or allow it to scroll internally if it does */
-        max-height: calc(100vh - 4rem);
-        overflow-y: auto;
-        /* Hide scrollbar for cleaner look if it needs to scroll */
-        scrollbar-width: none;
-    }
 
-    .results-sidebar.sticky::-webkit-scrollbar {
-        display: none;
-    }
-}
 
 /* --- End Dashboard Grid --- */
 
@@ -287,7 +272,7 @@
     }
 }
 
-/* --- Sticky Bottom Bar --- */
+/* --- Fixed Bottom Bar --- */
 .sticky-bottom-bar {
     position: fixed;
     bottom: 0;

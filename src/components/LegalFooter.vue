@@ -6,7 +6,7 @@
         Each case is unique, and past results do not guarantee future outcomes.
       </p>
       <p style="font-size: 0.6rem; color: #444; margin-top: 2rem; letter-spacing: 0.1em;">
-        © {{ new Date().getFullYear() }} PERSONAL INJURY ESTIMATOR | INSPIRED BY 8 LIMBS
+        © {{ new Date().getFullYear() }} PERSONAL INJURY ESTIMATOR | INSPIRED BY 8 LIMBS.
       </p>
     </div>
   </footer>

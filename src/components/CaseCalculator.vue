@@ -186,7 +186,7 @@ watch(isModalOpen, (newVal) => {
     <div v-if="isModalOpen" class="modal-overlay" @click="isModalOpen = false">
       <div class="modal-content fade-up" @click.stop>
         <div class="modal-header">
-          <h2 style="color: white; font-size: 1.5rem;">Talk to a Lawyer</h2>
+          <h2 style="color: white; font-size: 1.5rem;">Finalize Your case estimate</h2>
           <button class="close-btn" @click="isModalOpen = false">&times;</button>
         </div>
         <div class="modal-body">
@@ -235,8 +235,8 @@ watch(isModalOpen, (newVal) => {
 .modal-content {
   background: var(--surface-color);
   border: 1px solid var(--border-color);
-  width: 100%;
-  max-width: 500px;
+  width: 1200px;
+  max-width: 100%;
   border-radius: 12px;
   padding: 2rem;
   position: relative;

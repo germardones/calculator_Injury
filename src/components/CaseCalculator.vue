@@ -150,7 +150,7 @@ watch(isModalOpen, (newVal) => {
       <header class="calculator-header text-center fade-up" style="margin-bottom: 3rem;">
         <h1 class="main-title">ESTIMATE YOUR<br>CASE VALUE</h1>
         <p style="color: var(--text-secondary); margin-top: 1.5rem; font-weight: 500;">
-          Personal Injury Calculator based on Florida legal standards.
+          Personal Injury Calculator based on Florida legal standards
         </p>
       </header>
 

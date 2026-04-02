@@ -82,6 +82,23 @@ const handleZapierSubmit = async (formData) => {
   }
 
   const payload = {
+    // Top-level explicit fields to match requested data
+    "Was the accident in Florida?": formData.accidentInFlorida,
+    "When did your accident occur?": formData.whenOccurred,
+    "What type of accident or incident were you involved in?": formData.accidentType,
+    "Were you or someone else injured in this accident?": formData.wereInjured,
+    "Full Name": formData.name,
+    "Email Address": formData.email,
+    "Phone Number": formData.phone,
+    "Medical Expenses": inputs.value.medicalExpenses || 0,
+    "Lost Income": inputs.value.lostIncome || 0,
+    "Property Damage": inputs.value.propertyDamage || 0,
+    "Out-of-Pocket Expenses": inputs.value.outOfPocket || 0,
+    "Pain & Suffering Multiplier": inputs.value.multiplier,
+    "Fault or Liability Level": inputs.value.fault,
+    "Policy Limit": inputs.value.policyLimit || 'No Limit',
+
+    // Structured data
     contact: formData,
     calculator: {
       inputs: {

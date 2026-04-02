@@ -49,6 +49,12 @@ const updateField = (field, value) => {
   emit('update:modelValue', { ...props.modelValue, [field]: value });
 };
 
+const preventNegative = (e) => {
+  if (['-', '+', 'e', 'E'].includes(e.key)) {
+    e.preventDefault();
+  }
+};
+
 const descriptions = {
   medical: "Total costs of medical treatments related to the injury, including hospital visits, surgeries, rehabilitation, medications, and anticipated future care.\n\nExample: $15,000 for ER visit, surgery, and physical therapy after a car accident.",
   lostIncome: "Income lost due to the injury, encompassing time off work, reduced hours, or inability to return to previous employment. Future income loss can also be included.\n\nExample: $8,000 in missed wages during a two-month recovery period.",
@@ -86,9 +92,11 @@ const descriptions = {
           <Stethoscope class="input-icon" />
           <input 
             type="number" 
+            min="0"
             class="currency-input" 
             :value="modelValue.medicalExpenses"
             @input="updateField('medicalExpenses', $event.target.value)"
+            @keydown="preventNegative"
             placeholder="0"
           />
         </div>
@@ -110,9 +118,11 @@ const descriptions = {
           <Wallet class="input-icon" />
           <input 
             type="number" 
+            min="0"
             class="currency-input" 
             :value="modelValue.lostIncome"
             @input="updateField('lostIncome', $event.target.value)"
+            @keydown="preventNegative"
             placeholder="0"
           />
         </div>
@@ -134,9 +144,11 @@ const descriptions = {
           <Car class="input-icon" />
           <input 
             type="number" 
+            min="0"
             class="currency-input" 
             :value="modelValue.propertyDamage"
             @input="updateField('propertyDamage', $event.target.value)"
+            @keydown="preventNegative"
             placeholder="0"
           />
         </div>
@@ -158,9 +170,11 @@ const descriptions = {
           <TrendingUp class="input-icon" />
           <input 
             type="number" 
+            min="0"
             class="currency-input" 
             :value="modelValue.outOfPocket"
             @input="updateField('outOfPocket', $event.target.value)"
+            @keydown="preventNegative"
             placeholder="0"
           />
         </div>
@@ -233,9 +247,11 @@ const descriptions = {
           <ShieldCheck class="input-icon" />
           <input 
             type="number" 
+            min="0"
             class="currency-input" 
             :value="modelValue.policyLimit"
             @input="updateField('policyLimit', $event.target.value)"
+            @keydown="preventNegative"
             placeholder="No limit"
           />
         </div>

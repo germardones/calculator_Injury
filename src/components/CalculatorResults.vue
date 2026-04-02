@@ -39,7 +39,7 @@ const painPercent = computed(() => {
           This is what your case <strong>could be worth</strong> — but insurance companies won't hand it over easily.
         </div>
 
-        <div class="cta-alert" style="margin-top: 1rem;">
+        <div class="cta-alert" style="margin-top: 1rem;" data-html2canvas-ignore="true">
           <h4 style="margin-bottom: 0.5rem; font-weight: 700; font-size: 1.1rem; color: #fff;">Want to maximize your payout?</h4>
           <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #e0e0e0;">Our experienced attorneys fight to make sure you get every dollar you deserve.</p>
           <button class="btn-primary" style="width: 100%;" @click="emit('open-modal')">

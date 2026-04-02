@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
+import html2pdf from 'html2pdf.js';
 import CalculatorInputs from './CalculatorInputs.vue';
 import CalculatorResults from './CalculatorResults.vue';
 import SocialProof from './SocialProof.vue';
@@ -97,6 +98,7 @@ const handleZapierSubmit = async (formData) => {
     "Pain & Suffering Multiplier": inputs.value.multiplier,
     "Fault or Liability Level": inputs.value.fault,
     "Policy Limit": inputs.value.policyLimit || 'No Limit',
+    "Estimated Case Value": formatCurrency(results.value.finalSettlement),
 
     // Structured data
     contact: formData,
@@ -128,6 +130,22 @@ const handleZapierSubmit = async (formData) => {
   };
 
   try {
+    const element = document.querySelector('.dashboard-grid');
+    // Generate PDF as base64 string
+    const pdfBase64 = await html2pdf().from(element).set({
+      margin: 10,
+      filename: `Case-Evaluation.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).outputPdf('datauristring');
+    
+    payload['PDF Attachment'] = pdfBase64;
+  } catch (err) {
+    console.error('PDF generation failed:', err);
+  }
+
+  try {
     // Note: We use no-cors to avoid preflight issues with typical Zapier Webhook setups
     // unless the user specifically enables CORS on the Zap side.
     await fetch(webhookUrl, {
@@ -153,6 +171,18 @@ const resetSubmission = () => {
   submissionError.value = '';
 };
 
+// DEV TEST FUNCTION
+const previewPdf = () => {
+  const element = document.querySelector('.dashboard-grid');
+  html2pdf().from(element).set({
+    margin: 10,
+    filename: `Preview-Case-Evaluation.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  }).save();
+};
+
 // Reset form when modal opens
 watch(isModalOpen, (newVal) => {
   if (newVal) {
@@ -169,6 +199,9 @@ watch(isModalOpen, (newVal) => {
         <p style="color: var(--text-secondary); margin-top: 1.5rem; font-weight: 500;">
           Personal Injury Calculator based on Florida legal standards
         </p>
+        <button class="btn-primary" @click="previewPdf" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #666; font-size: 0.875rem;">
+          [TEST] Download PDF Preview
+        </button>
       </header>
 
       <div class="dashboard-grid">

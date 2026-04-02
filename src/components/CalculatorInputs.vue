@@ -68,10 +68,10 @@ const descriptions = {
 
 <template>
   <div class="inputs-section fade-up">
-    <h2 class="section-title" style="margin-bottom: 0.5rem;">
+    <h2 class="section-title" style="margin-bottom: 0.5rem;" data-html2canvas-ignore="true">
       <TrendingUp :size="16" /> ENTER YOUR NUMBERS
     </h2>
-    <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 2rem;">
+    <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 2rem;" data-html2canvas-ignore="true">
       You can leave inputs empty if you’re not sure on the exact number or use an estimate cost.
     </p>
 
@@ -258,7 +258,7 @@ const descriptions = {
       </div>
 
       <!-- Extended CTA below inputs -->
-      <div style="grid-column: 1 / -1; margin-top: 1rem;">
+      <div style="grid-column: 1 / -1; margin-top: 1rem;" data-html2canvas-ignore="true">
         <button class="btn-primary" style="width: 100%; display: flex; align-items: center; justify-content: center; padding: 1rem; font-size: 1.1rem;" @click="$emit('open-modal')">
           Email Me a Copy of This Information
         </button>

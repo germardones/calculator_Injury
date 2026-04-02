@@ -166,6 +166,7 @@ const handleSubmit = () => {
               v-model="formData.receiveEmail" 
               :disabled="status === 'loading'"
               class="custom-checkbox"
+              required
             />
             <span class="checkbox-text">Receive the breakdown information via email</span>
           </label>
@@ -178,6 +179,7 @@ const handleSubmit = () => {
               v-model="formData.consentSMS" 
               :disabled="status === 'loading'"
               class="custom-checkbox"
+              required
             />
             <span class="checkbox-text">I consent to receive messages related to my case. Message frequency may vary. Message & Data rates may apply. Reply HELP for help or STOP to opt-out.</span>
           </label>

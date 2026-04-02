@@ -227,7 +227,7 @@ watch(isModalOpen, (newVal) => {
           ESTIMATED CASE VALUE <span class="sticky-value">{{ formatCurrency(results.finalSettlement) }}</span>
         </div>
         <button class="btn-primary" @click="isModalOpen = true">
-          Click here to maximize your payout
+          Click here to maximize your payout.
         </button>
       </div>
     </div>

@@ -38,7 +38,7 @@
 @media (min-width: 992px) {
     .dashboard-grid {
         /* Asymmetrical 2-column layout */
-        grid-template-columns: minmax(auto, 650px) 1fr;
+        grid-template-columns: 1fr 450px;
         gap: 3rem;
     }
 }

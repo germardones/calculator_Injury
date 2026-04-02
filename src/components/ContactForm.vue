@@ -37,7 +37,7 @@ const handleSubmit = () => {
   <div class="contact-form">
     <div v-if="status === 'success'" class="status-container success fade-up">
       <CheckCircle2 :size="48" class="status-icon" />
-      <h3>THANK YOU. YOUR CASE EVALUATION HAS BEEN INITIATED.</h3>
+      <h3>THANK YOU. <br>YOUR CASE EVALUATION HAS BEEN INITIATED.</h3>
       <p>A representative will contact you shortly at the number provided to discuss the specific details of your claim. Due to the high-stakes nature of these cases, we prioritize evaluations based on the severity of the injury and the urgency of the legal deadlines.</p>
     </div>
 
@@ -226,6 +226,11 @@ const handleSubmit = () => {
 
 .input-group {
   margin-bottom: 0;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 4px;
 }
 
 .input-container {

@@ -172,83 +172,95 @@ input[type="range"]::-webkit-slider-thumb {
 /* --- PDF Light Mode Theme Override --- */
 .pdf-light-mode {
   --bg-color: #ffffff;
-  --surface-color: #f8f9fa;
-  --border-color: #e5e5e5;
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --accent-color: #374151;
-  --primary-gradient: linear-gradient(135deg, #1f2937 0%, #000000 100%);
+  --surface-color: #ffffff;
+  --border-color: #cccccc;
+  --text-primary: #000000;
+  --text-secondary: #000000;
+  --accent-color: #000000;
+  --primary-gradient: linear-gradient(135deg, #000000 0%, #333333 100%);
   
-  background-color: var(--bg-color) !important;
-  color: var(--text-primary) !important;
-  padding: 2rem !important; /* Add some padding so it doesn't touch the edge */
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  padding: 2rem !important;
 }
 
+/* Force everything to black text and white backgrounds */
+.pdf-light-mode,
 .pdf-light-mode * {
-  color: inherit;
+  color: #000000 !important;
 }
 
-.pdf-light-mode .section-title,
-.pdf-light-mode .white-text,
-.pdf-light-mode .info-toggle,
-.pdf-light-mode .info-toggle:hover {
-  color: var(--text-primary) !important;
-}
-
-.pdf-light-mode .input-label,
-.pdf-light-mode .slider-info,
-.pdf-light-mode .result-label {
-  color: var(--text-secondary) !important;
-}
-
-.pdf-light-mode input[type="number"],
-.pdf-light-mode input[type="text"] {
-  background: #ffffff !important;
-  color: var(--text-primary) !important;
-  border: 1px solid var(--border-color) !important;
-}
-
+.pdf-light-mode .dashboard-grid,
+.pdf-light-mode .results-container,
+.pdf-light-mode .calculator-chart,
+.pdf-light-mode .chart-legend,
+.pdf-light-mode .legend-item,
 .pdf-light-mode .card,
-.pdf-light-mode .results-card {
-  background: var(--surface-color) !important;
-  border-color: var(--border-color) !important;
+.pdf-light-mode .results-card,
+.pdf-light-mode input[type="number"],
+.pdf-light-mode input[type="text"],
+.pdf-light-mode .info-alert,
+.pdf-light-mode .cta-alert {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-color: #000000 !important;
 }
 
+/* Fix CSS Grid so page breaks work */
+.pdf-light-mode.dashboard-grid {
+  display: block !important;
+}
+
+.pdf-light-mode .inputs-column {
+  margin-bottom: 2rem;
+}
+
+.pdf-light-mode .results-sidebar {
+  page-break-before: always; /* Force page 2 */
+  margin-top: 2rem;
+}
+
+/* Move Results Card & Chart side-by-side */
+.pdf-light-mode .results-container {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 2rem !important;
+}
+
+.pdf-light-mode .results-card,
+.pdf-light-mode .calculator-chart {
+  flex: 1 1 50% !important;
+  max-width: 50% !important;
+}
+
+/* Special overrides for charts / specific colored fields */
 .pdf-light-mode .result-value {
-  background: var(--primary-gradient) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
+  -webkit-text-fill-color: #000000 !important;
+  background: none !important;
 }
 
 .pdf-light-mode .breakdown-row {
-  border-bottom-color: var(--border-color) !important;
+  border-bottom-color: #000000 !important;
 }
 
 .pdf-light-mode input[type="range"]::-webkit-slider-runnable-track {
-  background: #d1d5db !important;
+  background: #000000 !important;
 }
 
 .pdf-light-mode input[type="range"]::-webkit-slider-thumb {
-  background: #111827 !important;
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
 }
 
-.pdf-light-mode .legend-value {
-  color: var(--text-primary) !important;
-}
 
-.pdf-light-mode .legend-item {
-  background: rgba(0, 0, 0, 0.05) !important;
-}
 
-.pdf-light-mode text[fill="#fff"] {
-  fill: var(--text-primary) !important;
-}
-
-.pdf-light-mode text[fill="#888"] {
-  fill: var(--text-secondary) !important;
+/* Make SVG text black */
+.pdf-light-mode text {
+  fill: #000000 !important;
 }
 
 .pdf-light-mode circle[stroke="#1a1a1a"] {
-  stroke: var(--border-color) !important;
+  stroke: #cccccc !important;
 }

@@ -136,6 +136,7 @@ const handleZapierSubmit = async (formData) => {
       margin: 10,
       filename: `Case-Evaluation.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
+      pagebreak: { mode: 'css' },
       html2canvas: { 
         scale: 2, 
         useCORS: true,
@@ -185,8 +186,9 @@ const previewPdf = () => {
     margin: 10,
     filename: `Preview-Case-Evaluation.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
+    pagebreak: { mode: 'css' },
     html2canvas: { 
-      scale: 2, 
+      scale: 2,
       useCORS: true,
       onclone: (document) => {
         const grid = document.querySelector('.dashboard-grid');

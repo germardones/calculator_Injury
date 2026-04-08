@@ -136,8 +136,15 @@ const handleZapierSubmit = async (formData) => {
       margin: 10,
       filename: `Case-Evaluation.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      html2canvas: { 
+        scale: 2, 
+        useCORS: true,
+        onclone: (document) => {
+          const grid = document.querySelector('.dashboard-grid');
+          if (grid) grid.classList.add('pdf-light-mode');
+        }
+      },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
     }).outputPdf('datauristring');
     
     payload['PDF Attachment'] = pdfBase64;
@@ -178,8 +185,15 @@ const previewPdf = () => {
     margin: 10,
     filename: `Preview-Case-Evaluation.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    html2canvas: { 
+      scale: 2, 
+      useCORS: true,
+      onclone: (document) => {
+        const grid = document.querySelector('.dashboard-grid');
+        if (grid) grid.classList.add('pdf-light-mode');
+      }
+    },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
   }).save();
 };
 

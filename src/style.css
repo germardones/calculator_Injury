@@ -168,3 +168,87 @@ input[type="range"]::-webkit-slider-thumb {
   font-weight: 900;
   cursor: pointer;
 }
+
+/* --- PDF Light Mode Theme Override --- */
+.pdf-light-mode {
+  --bg-color: #ffffff;
+  --surface-color: #f8f9fa;
+  --border-color: #e5e5e5;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --accent-color: #374151;
+  --primary-gradient: linear-gradient(135deg, #1f2937 0%, #000000 100%);
+  
+  background-color: var(--bg-color) !important;
+  color: var(--text-primary) !important;
+  padding: 2rem !important; /* Add some padding so it doesn't touch the edge */
+}
+
+.pdf-light-mode * {
+  color: inherit;
+}
+
+.pdf-light-mode .section-title,
+.pdf-light-mode .white-text,
+.pdf-light-mode .info-toggle,
+.pdf-light-mode .info-toggle:hover {
+  color: var(--text-primary) !important;
+}
+
+.pdf-light-mode .input-label,
+.pdf-light-mode .slider-info,
+.pdf-light-mode .result-label {
+  color: var(--text-secondary) !important;
+}
+
+.pdf-light-mode input[type="number"],
+.pdf-light-mode input[type="text"] {
+  background: #ffffff !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.pdf-light-mode .card,
+.pdf-light-mode .results-card {
+  background: var(--surface-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+.pdf-light-mode .result-value {
+  background: var(--primary-gradient) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.pdf-light-mode .breakdown-row {
+  border-bottom-color: var(--border-color) !important;
+}
+
+.pdf-light-mode input[type="range"]::-webkit-slider-runnable-track {
+  background: #d1d5db !important;
+}
+
+.pdf-light-mode input[type="range"]::-webkit-slider-thumb {
+  background: #111827 !important;
+}
+
+.pdf-light-mode .legend-value {
+  color: var(--text-primary) !important;
+}
+
+.pdf-light-mode .legend-item {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+.pdf-light-mode text[fill="#fff"] {
+  fill: var(--text-primary) !important;
+}
+
+.pdf-light-mode text[fill="#888"] {
+  fill: var(--text-secondary) !important;
+}
+
+.pdf-light-mode circle[stroke="#1a1a1a"] {
+  stroke: var(--border-color) !important;
+}

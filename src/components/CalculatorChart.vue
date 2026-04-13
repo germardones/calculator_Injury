@@ -74,7 +74,7 @@ const formatCurrency = (val) => {
 <template>
   <div class="calculator-chart fade-up">
     <div class="chart-container">
-      <svg :width="size" :height="size" viewBox="0 0 300 300" class="donut-chart">
+      <svg :width="size" :height="size" viewBox="0 0 300 300" class="donut-chart" xmlns="http://www.w3.org/2000/svg">
         <!-- Background circle -->
         <circle 
           :cx="cx" :cy="cy" :r="radius" 
@@ -111,7 +111,7 @@ const formatCurrency = (val) => {
         <div class="legend-color" :style="{ backgroundColor: segment.color }"></div>
         <div class="legend-text">
           <span class="legend-label">{{ segment.label }}</span>
-          <span class="legend-value">{{ segment.percent }}%</span>
+          <span class="legend-value">{{ formatCurrency(segment.value) }} ({{ segment.percent }}%)</span>
         </div>
       </div>
     </div>

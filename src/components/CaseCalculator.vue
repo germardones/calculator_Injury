@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue';
 import html2pdf from 'html2pdf.js';
 import CalculatorInputs from './CalculatorInputs.vue';
 import CalculatorResults from './CalculatorResults.vue';
+import CalculatorChart from './CalculatorChart.vue';
 import SocialProof from './SocialProof.vue';
 import ContactForm from './ContactForm.vue';
 import '../calculator.css';
@@ -130,23 +131,52 @@ const handleZapierSubmit = async (formData) => {
   };
 
   try {
-    const element = document.querySelector('.dashboard-grid');
-    // Generate PDF as base64 string
-    const pdfBase64 = await html2pdf().from(element).set({
-      margin: 10,
-      filename: `Case-Evaluation.pdf`,
+    const originalElement = document.getElementById('pdf-report');
+    
+    // Create an isolated clone to insert into DOM for guaranteed layout calculation
+    const clone = originalElement.cloneNode(true);
+    clone.id = 'pdf-report-clone';
+    clone.style.display = 'block';
+    
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'fixed';
+    wrapper.style.top = '0';
+    wrapper.style.left = '0';
+    wrapper.style.opacity = '0.001';
+    wrapper.style.pointerEvents = 'none';
+    wrapper.style.zIndex = '-9999';
+    wrapper.appendChild(clone);
+    document.body.appendChild(wrapper);
+
+    // Wait for the browser to recalculate the layout bounding box
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+    const pdfBase64 = await html2pdf().from(clone).set({
+      margin: 0,
+      filename: `Case-Evaluation-Report.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       pagebreak: { mode: 'css' },
       html2canvas: { 
         scale: 2, 
         useCORS: true,
-        onclone: (document) => {
-          const grid = document.querySelector('.dashboard-grid');
-          if (grid) grid.classList.add('pdf-light-mode');
+        scrollY: 0,
+        scrollX: 0,
+        backgroundColor: '#030712',
+        width: 794, // 210mm at 96dpi is ~794px
+        onclone: (clonedDoc) => {
+          clonedDoc.body.style.backgroundColor = '#030712';
+          const report = clonedDoc.getElementById('pdf-report-clone');
+          if (report) {
+            report.parentNode.style.opacity = '1';
+            report.style.display = 'block';
+          }
         }
       },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
     }).outputPdf('datauristring');
+    
+    // Clean up
+    document.body.removeChild(wrapper);
     
     payload['PDF Attachment'] = pdfBase64;
   } catch (err) {
@@ -180,23 +210,53 @@ const resetSubmission = () => {
 };
 
 // DEV TEST FUNCTION
-const previewPdf = () => {
-  const element = document.querySelector('.dashboard-grid');
-  html2pdf().from(element).set({
-    margin: 10,
-    filename: `Preview-Case-Evaluation.pdf`,
+const previewPdf = async () => {
+  const originalElement = document.getElementById('pdf-report');
+  
+  // Create an isolated clone to insert into DOM for guaranteed layout calculation
+  const clone = originalElement.cloneNode(true);
+  clone.id = 'pdf-report-clone';
+  clone.style.display = 'block';
+  
+  const wrapper = document.createElement('div');
+  wrapper.style.position = 'fixed';
+  wrapper.style.top = '0';
+  wrapper.style.left = '0';
+  wrapper.style.opacity = '0.001';
+  wrapper.style.pointerEvents = 'none';
+  wrapper.style.zIndex = '-9999';
+  wrapper.appendChild(clone);
+  document.body.appendChild(wrapper);
+
+  // Wait for the browser to recalculate the layout bounding box
+  await new Promise(resolve => setTimeout(resolve, 50));
+
+  await html2pdf().from(clone).set({
+    margin: 0,
+    filename: `Preview-Case-Evaluation-Report.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
     pagebreak: { mode: 'css' },
     html2canvas: { 
-      scale: 2,
+      scale: 2, 
       useCORS: true,
-      onclone: (document) => {
-        const grid = document.querySelector('.dashboard-grid');
-        if (grid) grid.classList.add('pdf-light-mode');
+      scrollY: 0,
+      scrollX: 0,
+      backgroundColor: '#030712',
+      width: 794, 
+      onclone: (clonedDoc) => {
+        clonedDoc.body.style.backgroundColor = '#030712';
+        const report = clonedDoc.getElementById('pdf-report-clone');
+        if (report) {
+          report.parentNode.style.opacity = '1';
+          report.style.display = 'block';
+        }
       }
     },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
   }).save();
+
+  // Clean up
+  document.body.removeChild(wrapper);
 };
 
 // Reset form when modal opens
@@ -209,13 +269,13 @@ watch(isModalOpen, (newVal) => {
 
 <template>
   <div class="calculator-wrapper">
-    <div class="container">
+    <div class="container capture-area">
       <header class="calculator-header text-center fade-up" style="margin-bottom: 3rem;">
         <h1 class="main-title">ESTIMATE YOUR<br>CASE VALUE</h1>
-        <p style="color: var(--text-secondary); margin-top: 1.5rem; font-weight: 500;">
+        <p style="color: var(--text-secondary); margin-top: 1.5rem; font-weight: 500;" class="header-subtitle">
           Personal Injury Calculator based on Florida legal standards
         </p>
-        <button class="btn-primary" @click="previewPdf" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #666; font-size: 0.875rem;">
+        <button class="btn-primary pdf-hidden" @click="previewPdf" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #666; font-size: 0.875rem;">
           [TEST] Download PDF Preview
         </button>
       </header>
@@ -234,6 +294,95 @@ watch(isModalOpen, (newVal) => {
       </div>
 
       <SocialProof />
+    </div>
+
+    <!-- Executive Report for PDF Generator (Off-screen) -->
+    <div class="pdf-executive-report" id="pdf-report">
+      
+      <!-- PAGE 1 -->
+      <div class="pdf-page">
+        <div class="report-header">
+          <div class="header-left">
+            <h1 class="report-firm-name">8LIMBS LAW GROUP</h1>
+            <p class="report-firm-tagline">PERSONAL INJURY ADVOCATES</p>
+          </div>
+          <div class="header-right">
+            <p class="report-firm-contact">floridainjury.com</p>
+            <p class="report-firm-contact">1-800-INJURY-LAW</p>
+          </div>
+        </div>
+
+        <div class="report-body-wrapper">
+        <div class="report-title-section">
+          <h2>CASE EVALUATION EXECUTIVE SUMMARY</h2>
+          <p>Prepared on: {{ new Date().toLocaleDateString() }}</p>
+        </div>
+
+        <div class="report-grid">
+          <div class="report-section">
+            <h3>1. Input Variables</h3>
+            <table class="report-table">
+              <tbody>
+                <tr><td>Medical Expenses</td><td>{{ formatCurrency(inputs.medicalExpenses) }}</td></tr>
+                <tr><td>Lost Income</td><td>{{ formatCurrency(inputs.lostIncome) }}</td></tr>
+                <tr><td>Property Damage</td><td>{{ formatCurrency(inputs.propertyDamage) }}</td></tr>
+                <tr><td>Out-of-Pocket</td><td>{{ formatCurrency(inputs.outOfPocket) }}</td></tr>
+                <tr><td>Pain/Suffering Multiplier</td><td>{{ inputs.multiplier }}x</td></tr>
+                <tr><td>Fault Proportion</td><td>{{ inputs.fault }}%</td></tr>
+                <tr v-if="inputs.policyLimit"><td>Policy Limit</td><td>{{ formatCurrency(inputs.policyLimit) }}</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="report-section">
+            <h3>2. Evaluation Breakdown</h3>
+            <table class="report-table">
+              <tbody>
+                <tr><td><strong>Economic Losses</strong></td><td><strong>{{ formatCurrency(results.economicLosses) }}</strong></td></tr>
+                <tr><td><strong>Pain and Suffering</strong></td><td><strong>{{ formatCurrency(results.painAndSuffering) }}</strong></td></tr>
+                <tr><td>Total Before Adjustments</td><td>{{ formatCurrency(results.totalBeforeAdjustment) }}</td></tr>
+                <tr v-if="results.fault > 0"><td class="red">Fault Deduction</td><td class="red">-{{ formatCurrency(results.faultDeduction) }}</td></tr>
+                <tr v-if="results.isLimited"><td class="red">Policy Limit Applied</td><td class="red">Cap Reached</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="report-summary-box">
+          <h3>ESTIMATED CASE VALUE</h3>
+          <h1 class="final-value">{{ formatCurrency(results.finalSettlement) }}</h1>
+          <p v-if="results.fault >= 50" class="red text-center" style="margin-top: 10px; color: #ff8a8a !important;">Note: Florida law prevents recovery if fault is 50% or higher.</p>
+        </div>
+        </div> <!-- Close report-body-wrapper -->
+      </div>
+
+      <!-- PAGE 2 -->
+      <div class="pdf-page">
+        <div class="report-header">
+          <div class="header-left">
+            <h1 class="report-firm-name">8LIMBS LAW GROUP</h1>
+            <p class="report-firm-tagline">PERSONAL INJURY ADVOCATES</p>
+          </div>
+          <div class="header-right">
+            <p class="report-firm-contact">floridainjury.com</p>
+            <p class="report-firm-contact">1-800-INJURY-LAW</p>
+          </div>
+        </div>
+
+        <div class="report-body-wrapper" style="flex: 1; display: flex; flex-direction: column;">
+          <div class="report-section report-chart-section">
+            <h3>3. Visual Breakdown</h3>
+            <div class="chart-wrapper">
+               <CalculatorChart v-if="results.totalBeforeAdjustment > 0" :economicLosses="results.economicLosses" :painAndSuffering="results.painAndSuffering" />
+            </div>
+          </div>
+        
+          <div class="report-footer" style="margin-top: auto;">
+            <p><strong>Disclaimer:</strong> This executive summary is an algorithmic estimation based on standard Florida personal injury guidelines. It does not constitute legal advice or a guarantee of recovery. Insurance companies actively work to minimize payouts. Consult with our qualified attorneys to establish formal legal strategy.</p>
+          </div>
+        </div>
+      </div>
+      
     </div>
 
     <!-- Sticky Bottom Summary Bar -->

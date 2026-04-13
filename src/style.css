@@ -169,98 +169,230 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
 }
 
-/* --- PDF Light Mode Theme Override --- */
-.pdf-light-mode {
-  --bg-color: #ffffff;
-  --surface-color: #ffffff;
-  --border-color: #cccccc;
-  --text-primary: #000000;
-  --text-secondary: #000000;
-  --accent-color: #000000;
-  --primary-gradient: linear-gradient(135deg, #000000 0%, #333333 100%);
-  
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  padding: 2rem !important;
+/* --- Executive PDF Report --- */
+.pdf-executive-report {
+  display: none;
+  width: 210mm;
+  background: #030712;
+  color: #f9fafb;
+  box-sizing: border-box;
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Force everything to black text and white backgrounds */
-.pdf-light-mode,
-.pdf-light-mode * {
-  color: #000000 !important;
+.pdf-executive-report .pdf-page {
+  width: 210mm;
+  height: 296.8mm; /* Standard A4 is 297mm - stay slightly under to avoid extra page */
+  background: #030712;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
 }
 
-.pdf-light-mode .dashboard-grid,
-.pdf-light-mode .results-container,
-.pdf-light-mode .calculator-chart,
-.pdf-light-mode .chart-legend,
-.pdf-light-mode .legend-item,
-.pdf-light-mode .card,
-.pdf-light-mode .results-card,
-.pdf-light-mode input[type="number"],
-.pdf-light-mode input[type="text"],
-.pdf-light-mode .info-alert,
-.pdf-light-mode .cta-alert {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  border-color: #000000 !important;
+/* Ensure no stray margins on child elements trigger overflow */
+.pdf-executive-report * {
+  box-sizing: border-box;
 }
 
-/* Fix CSS Grid so page breaks work */
-.pdf-light-mode.dashboard-grid {
-  display: block !important;
+.pdf-executive-report .report-header {
+  background: #030712;
+  color: white;
+  padding: 20px 40px;
+  text-align: left;
+  border-bottom: 2px solid #1f2937; /* Subtle dark divider */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.pdf-light-mode .inputs-column {
-  margin-bottom: 2rem;
+.pdf-executive-report .report-firm-name {
+  font-size: 28px;
+  font-weight: 900;
+  color: white;
+  margin: 0;
+  letter-spacing: 1px;
 }
 
-.pdf-light-mode .results-sidebar {
-  page-break-before: always; /* Force page 2 */
-  margin-top: 2rem;
+.pdf-executive-report .report-firm-tagline {
+  font-size: 13px;
+  font-weight: 600;
+  color: #9ca3af; /* Matches site secondary text */
+  margin: 5px 0 0 0;
+  letter-spacing: 1.5px;
 }
 
-/* Move Results Card & Chart side-by-side */
-.pdf-light-mode .results-container {
-  display: flex !important;
+.pdf-executive-report .header-right {
+  text-align: right;
+}
+
+.pdf-executive-report .report-firm-contact {
+  font-size: 13px;
+  color: #9ca3af;
+  margin: 2px 0;
+  font-weight: 500;
+}
+
+.pdf-executive-report .report-body-wrapper {
+  padding: 30px 40px;
+}
+
+.pdf-executive-report .report-title-section {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.pdf-executive-report .report-title-section h2 {
+  font-size: 22px;
+  margin: 0 0 5px 0;
+  font-weight: 800;
+  color: #f9fafb;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.pdf-executive-report .report-title-section p {
+  color: #6b7280;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pdf-executive-report .report-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.pdf-executive-report .report-grid .report-section {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.pdf-executive-report .report-section {
+  background: #111827; /* Matches site surface */
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+}
+
+.pdf-executive-report .report-section h3 {
+  font-size: 15px;
+  border-bottom: 1px solid #374151;
+  padding-bottom: 8px;
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #f9fafb;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pdf-executive-report .report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.pdf-executive-report .report-table td {
+  padding: 8px 0;
+  border-bottom: 1px solid #1f2937;
+  color: #d1d5db;
+  font-weight: 500;
+}
+
+.pdf-executive-report .report-table tr:last-child td {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.pdf-executive-report .report-table td:last-child {
+  text-align: right;
+  font-weight: 700;
+  color: #f9fafb;
+}
+
+.pdf-executive-report .report-summary-box {
+  background: #111827; /* Matches site dark card */
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  margin-bottom: 25px;
+  color: white;
+  border: 1px solid #1f2937;
+}
+
+.pdf-executive-report .report-summary-box h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  color: #9ca3af; /* Matches website labels exactly */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.pdf-executive-report .final-value {
+  font-size: 48px;
+  font-weight: 900;
+  color: white;
+  margin: 0;
+}
+
+.pdf-executive-report .red {
+  color: #ef4444 !important; /* Brighter red for dark mode */
+}
+
+.pdf-executive-report .text-center {
+  text-align: center;
+}
+
+.pdf-executive-report .report-chart-section {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 0px;
+}
+
+.pdf-executive-report .chart-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background: transparent;
+}
+
+/* Override components styles correctly for PDF Dark Mode */
+.pdf-executive-report .calculator-chart {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
   flex-direction: row !important;
-  align-items: flex-start !important;
-  justify-content: center !important;
-  gap: 2rem !important;
+  justify-content: space-around !important;
+  width: 100% !important;
+}
+.pdf-executive-report .calculator-chart text {
+  fill: #f9fafb !important;
+}
+.pdf-executive-report .legend-item {
+  background: #1f2937 !important;
+  border: 1px solid #374151 !important;
+}
+.pdf-executive-report .legend-label {
+  color: #d1d5db !important;
+}
+.pdf-executive-report .legend-value {
+  color: #f9fafb !important;
 }
 
-.pdf-light-mode .results-card,
-.pdf-light-mode .calculator-chart {
-  flex: 1 1 50% !important;
-  max-width: 50% !important;
-}
-
-/* Special overrides for charts / specific colored fields */
-.pdf-light-mode .result-value {
-  -webkit-text-fill-color: #000000 !important;
-  background: none !important;
-}
-
-.pdf-light-mode .breakdown-row {
-  border-bottom-color: #000000 !important;
-}
-
-.pdf-light-mode input[type="range"]::-webkit-slider-runnable-track {
-  background: #000000 !important;
-}
-
-.pdf-light-mode input[type="range"]::-webkit-slider-thumb {
-  background: #000000 !important;
-  border: 2px solid #ffffff !important;
-}
-
-
-
-/* Make SVG text black */
-.pdf-light-mode text {
-  fill: #000000 !important;
-}
-
-.pdf-light-mode circle[stroke="#1a1a1a"] {
-  stroke: #cccccc !important;
+.pdf-executive-report .report-footer {
+  margin-top: 25px;
+  border-top: 1px solid #374151;
+  padding-top: 15px;
+  font-size: 11px;
+  color: #6b7280;
+  text-align: justify;
+  line-height: 1.6;
 }

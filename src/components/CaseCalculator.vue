@@ -276,7 +276,7 @@ watch(isModalOpen, (newVal) => {
           Personal Injury Calculator based on Florida legal standards
         </p>
         <button class="btn-primary pdf-hidden" @click="previewPdf" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #666; font-size: 0.875rem;">
-          [TEST] Download PDF Preview
+          Download PDF Preview
         </button>
       </header>
 

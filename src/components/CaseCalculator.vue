@@ -303,18 +303,14 @@ watch(isModalOpen, (newVal) => {
       <div class="pdf-page">
         <div class="report-header">
           <div class="header-left">
-            <h1 class="report-firm-name">8LIMBS LAW GROUP</h1>
-            <p class="report-firm-tagline">PERSONAL INJURY ADVOCATES</p>
-          </div>
-          <div class="header-right">
-            <p class="report-firm-contact">floridainjury.com</p>
-            <p class="report-firm-contact">1-800-INJURY-LAW</p>
+            <h1 class="report-firm-name">YOUR CASE VALUE ESTIMATE</h1>
+            <p class="report-firm-tagline">Disclaimer: The figure provided is an estimate. Consult with a qualified attorney to discuss the merits of your case and confirm your evaluation.</p>
           </div>
         </div>
 
         <div class="report-body-wrapper">
         <div class="report-title-section">
-          <h2>CASE EVALUATION EXECUTIVE SUMMARY</h2>
+          <h2>EXECUTIVE SUMMARY</h2>
           <p>Prepared on: {{ new Date().toLocaleDateString() }}</p>
         </div>
 
@@ -360,12 +356,8 @@ watch(isModalOpen, (newVal) => {
       <div class="pdf-page">
         <div class="report-header">
           <div class="header-left">
-            <h1 class="report-firm-name">8LIMBS LAW GROUP</h1>
-            <p class="report-firm-tagline">PERSONAL INJURY ADVOCATES</p>
-          </div>
-          <div class="header-right">
-            <p class="report-firm-contact">floridainjury.com</p>
-            <p class="report-firm-contact">1-800-INJURY-LAW</p>
+            <h1 class="report-firm-name">YOUR CASE VALUE ESTIMATE</h1>
+            <p class="report-firm-tagline">Disclaimer: The figure provided is an estimate. Consult with a qualified attorney to discuss the merits of your case and confirm your evaluation.</p>
           </div>
         </div>
 
